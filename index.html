@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>To-Do</title>
-    <script src="Sortable.min.js"></script>
-    <script src="script.js"></script>
+    <link rel="stylesheet"  href="style/main.css">
+    <script type="application/javascript" src="script/Sortable.min.js"></script>
+    <script type="application/javascript" src="script/main.js"></script>
+    <script type="application/javascript" src="script/lang.js"></script>
 </head>
 <body>
 <template id="template_list">
@@ -12,7 +14,7 @@
         <thead>
         <tr>
             <th>
-                Aufgabe
+                <span class="lang" data-tag="task"></span>
             </th>
             <th>
                 Prio

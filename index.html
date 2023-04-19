@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title>To-Do</title>
     <link rel="stylesheet"  href="style/main.css">
-    <script type="application/javascript" src="script/Sortable.min.js"></script>
+    <script type="application/javascript" src="script/components/lang.js"></script>
+    <script type="application/javascript" src="script/components/lists.js"></script>
+    <script type="application/javascript" src="script/components/db.js"></script>
+    <script type="application/javascript" src="script/plugins/Sortable.min.js"></script>
     <script type="application/javascript" src="script/main.js"></script>
-    <script type="application/javascript" src="script/lang.js"></script>
 </head>
 <body>
 <template id="template_list">
-    <table>
+    <table class="table-list">
         <thead>
         <tr>
             <th>
@@ -57,7 +59,19 @@
     </tr>
 </template>
 
-<div id="example1" class="list-group col">
+<div class="main">
+    <div class="menu-bar">
+
+    </div>
+    <div class="lists-container">
+
+    </div>
+    <div class="quickactions-container">
+        <button id="addList">Neue Liste</button>
+    </div>
+    <div class="notifications-container">
+
+    </div>
 </div>
 
 </body>

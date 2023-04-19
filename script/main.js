@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    new Sortable(example1, {
-        animation: 150,
-        ghostClass: 'blue-background-class'
-    });
+
+    let listTemplate = document.querySelector('#template_list');
+    let listContainer = document.querySelector('.lists-container');
+
+
+    
+
+    document.querySelector('#addList').addEventListener('click', () => {
+        const clone = listTemplate.content.cloneNode(true);
+        listContainer.append(clone);
+
+        initializeList(listContainer.querySelector('.table-list:last-child'));
+    })
 });

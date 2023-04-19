@@ -5,7 +5,8 @@ const lang_en = {
     "start": "start",
     "end": "end",
     "mentaleffort": "mental effort",
-    "notes": "notes"
+    "notes": "notes",
+    dbError: "Database connection error!"
 };
 
 const lang_de = {
@@ -15,17 +16,20 @@ const lang_de = {
     "start": "Beginn",
     "end": "Ende",
     "mentaleffort": "Denkaufwand",
-    "notes": "Notizen"
+    "notes": "Notizen",
+    dbError: "Datenbankfehler!"
 };
+
+let lang = lang_de;
 
 function reloadLanguages() {
     document.querySelectorAll('.lang[data-tag]').forEach((e) => {
-        e.innerText = lang_de[e.dataset.tag];
+        e.innerText = lang[e.dataset.tag];
     });
 
     document.querySelectorAll('template').forEach((e) => {
         e.content.querySelectorAll('.lang[data-tag]').forEach((e) => {
-            e.innerText = lang_de[e.dataset.tag];
+            e.innerText = lang[e.dataset.tag];
         });
     })
 }

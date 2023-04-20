@@ -1,39 +1,61 @@
-const lang_en = {
-    "lang": "de",
-    "task": "task",
-    "prio": "priority",
-    "start": "start",
-    "end": "end",
-    "mentaleffort": "mental effort",
-    "notes": "notes",
-    dbError: "Database connection error!"
-};
+class Language {
+    #en = {
+        lang: "de",
+        task: "task",
+        prio: "priority",
+        start: "start",
+        end: "end",
+        mentaleffort: "mental effort",
+        notes: "notes",
+        dbError: "Database connection error!",
+        newListBtn: 'new list'
+    };
 
-const lang_de = {
-    lang: "de",
-    "task": "Aufgabe",
-    "prio": "Priorität",
-    "start": "Beginn",
-    "end": "Ende",
-    "mentaleffort": "Denkaufwand",
-    "notes": "Notizen",
-    dbError: "Datenbankfehler!"
-};
+    #de = {
+        lang: "de",
+        task: "Aufgabe",
+        prio: "Priorität",
+        start: "Beginn",
+        end: "Ende",
+        mentaleffort: "Denkaufwand",
+        notes: "Notizen",
+        dbError: "Datenbankfehler!",
+        newListBtn: 'Neue Liste'
+    };
 
-let lang = lang_de;
+    #active = this.#en;
 
-function reloadLanguages() {
-    document.querySelectorAll('.lang[data-tag]').forEach((e) => {
-        e.innerText = lang[e.dataset.tag];
-    });
+    constructor() {
+        this.#reloadLanguage();
+    }
 
-    document.querySelectorAll('template').forEach((e) => {
-        e.content.querySelectorAll('.lang[data-tag]').forEach((e) => {
-            e.innerText = lang[e.dataset.tag];
+    /**
+     *
+     * @param lang
+     */
+    setLanguage(lang) {
+        switch(lang) {
+            case 'de':
+                this.#active = this.#de;
+                break;
+            case 'en':
+                this.#active = this.#en;
+                break;
+            default:
+                break;
+        }
+        this.#reloadLanguage();
+    }
+
+    #reloadLanguage() {
+        document.querySelectorAll('.lang[data-tag]').forEach((e) => {
+            e.innerText = this.#active[e.dataset.tag];
         });
-    })
-}
 
-document.addEventListener('DOMContentLoaded', ()=> {
-    reloadLanguages();
-});
+        document.querySelectorAll('template').forEach((e) => {
+            e.content.querySelectorAll('.lang[data-tag]').forEach((e) => {
+                e.innerText = this.#active[e.dataset.tag];
+            });
+        })
+    }
+}

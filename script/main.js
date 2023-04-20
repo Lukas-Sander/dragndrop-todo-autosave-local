@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let listContainer = document.querySelector('.lists-container');
 
     const listController = new ListController();
+    const langController = new Language();
 
-
-
+    langController.setLanguage('de');
 
     document.querySelector('#addList').addEventListener('click', () => {
         const clone = listTemplate.content.cloneNode(true);

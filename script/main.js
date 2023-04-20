@@ -1,17 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    let listTemplate = document.querySelector('#template_list');
-    let listContainer = document.querySelector('.lists-container');
+    const main = async() => {
+
 
     const listController = new ListController();
     const langController = new Language();
+    const dbController = new DatabaseController();
+
+    const test = await dbController.init();
+    console.log(test);
+
+    console.log(dbController);
+
+
+        dbController.testWrite();
 
     langController.setLanguage('de');
 
     document.querySelector('#addList').addEventListener('click', () => {
-        const clone = listTemplate.content.cloneNode(true);
-        listContainer.append(clone);
-
-        listController.initializeList(listContainer.querySelector('.table-list:last-child'));
+        listController.addList();
     })
+    };
+
+    main();
 });

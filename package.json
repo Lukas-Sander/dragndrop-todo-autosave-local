@@ -1,0 +1,17 @@
+{
+  "name": "dragndrop-todo-autosave-local",
+  "version": "1.0.0",
+  "main": "script/main.js",
+  "repository": "https://github.com/Lukas-Sander/dragndrop-todo-autosave-local.git",
+  "author": "Lukas Sander <lukas.sander@vicotec.de>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "webpack": "^5.80.0",
+    "webpack-cli": "^5.0.2"
+  }
+}

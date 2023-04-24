@@ -3,14 +3,20 @@ class DatabaseController {
 
     async init() {
         return new Promise((resolve, reject) => {
-
-
-            const request = window.indexedDB.open("ListDB");
-
+            const request = window.indexedDB.open("ListDB", 2);
             request.onerror = (e) => {
                 reject(false);
                 console.log(e);
                 alert(lang.dbError);
+            }
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+
+                const objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
+                objectStore.createIndex("name", "name", { unique: false });
+                objectStore.createIndex("email", "email", { unique: true });
+                this.#db = event.target.result;
+                resolve(true);
             }
             request.onsuccess = (e) => {
                 this.#db = e.target.result;
@@ -20,6 +26,14 @@ class DatabaseController {
     }
 
     testWrite() {
+        // const objectStore = this.#db.createObjectStore("customers", { keyPath: "ssn" });
+        // objectStore.createIndex("name", "name", { unique: false });
+        // objectStore.createIndex("email", "email", { unique: true });
+        //
+        // objectStore.transaction.oncomplete = (event) => {
+
+
+
         const customerData = [
             { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
             { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" },
@@ -46,5 +60,6 @@ class DatabaseController {
                 // event.target.result === customer.ssn;
             };
         });
+        // };
     }
 }

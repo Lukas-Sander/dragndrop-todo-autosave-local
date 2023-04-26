@@ -1,0 +1,62 @@
+#notifications {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: start;
+}
+#notifications p {
+    background: white;
+    padding: 1em;
+    margin: 0;
+    border: 1px solid black;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.savebtn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.pure-checkbox {
+    width: 2em;
+    height: 2em;
+}
+
+tr.strikethrough {
+    position: relative;
+}
+
+tr.strikethrough:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-bottom: 3px solid black;
+    pointer-events: none;
+}
+
+input[type="number"] {
+    width: 5em;
+}
+th,td {
+    width: 0;
+}
+textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+.handle {
+    font-size: 2em;
+    font-weight: bold;
+    cursor: grab;
+}

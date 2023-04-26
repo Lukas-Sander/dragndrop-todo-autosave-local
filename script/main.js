@@ -1,4 +1,4 @@
-// import('components/DatabaseController');
+import DatabaseController from "components/DatabaseController";
 
 document.addEventListener('DOMContentLoaded', () => {
 

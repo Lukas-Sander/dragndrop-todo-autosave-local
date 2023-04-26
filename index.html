@@ -6,7 +6,7 @@
     <link rel="stylesheet"  href="style/main.css">
     <script type="application/javascript" src="script/components/lang.js"></script>
     <script type="application/javascript" src="script/components/lists.js"></script>
-    <script type="application/javascript" src="script/components/DatabaseController.js"></script>
+<!--    <script type="application/javascript" src="script/components/DatabaseController.js"></script>-->
     <script type="application/javascript" src="script/plugins/Sortable.min.js"></script>
     <script type="application/javascript" src="script/main.js"></script>
 </head>
@@ -43,18 +43,25 @@
 <template id="template_todo">
     <tr>
         <td>
-            <input type="text">
+            <input name="taskname" type="text">
         </td>
         <td>
-            <select>
-                <option>🟥 1</option>
-                <option>🟧 2</option>
-                <option>🟨 3</option>
-                <option>🟩 4</option>
-                <option>🟦 5</option>
-                <option>🟪 6</option>
-                <option>🟫 7</option>
-            </select>
+            <input name="taskprio" type="number" min="0">
+        </td>
+        <td>
+            <input name="taskstart" type="datetime-local">
+        </td>
+        <td>
+            <input name="taskend" type="datetime-local">
+        </td>
+        <td>
+            <input name="taskthink" type="number" min="0">
+        </td>
+        <td>
+            <textarea name="tasknotes"></textarea>
+        </td>
+        <td>
+            <button onclick="deleteTask(this);"></button>
         </td>
     </tr>
 </template>

@@ -19,7 +19,13 @@ function exportText() {
 
     document.querySelector('.export').innerText = JSON.stringify(data);
     notify('Export in Textfeld!');
+}
 
+function importText() {
+    let importTxt = document.querySelector('.export').value;
+    localStorage.setItem('todo', importTxt);
+    notify('Import fertig. Lade Inhalte...')
+    load();
 }
 
 function save() {
@@ -44,6 +50,7 @@ function save() {
     localStorage.setItem('todo', JSON.stringify(data));
     notify('Gespeichert!');
 }
+
 function load() {
     let storage = localStorage.getItem('todo');
     if(!storage) {

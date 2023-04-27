@@ -17,7 +17,7 @@ function exportText() {
         data.form.push(row);
     });
 
-    document.querySelector('.export').innerText = JSON.stringify(data);
+    document.querySelector('.export').value = JSON.stringify(data);
     notify('Export in Textfeld!');
 }
 

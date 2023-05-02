@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>To-Do</title>
-    <link rel="stylesheet"  href="style/main.css">
-    <script type="application/javascript" src="script/components/lang.js"></script>
-    <script type="application/javascript" src="script/components/lists.js"></script>
-<!--    <script type="application/javascript" src="script/components/DatabaseController.js"></script>-->
-    <script type="application/javascript" src="script/plugins/Sortable.min.js"></script>
-    <script type="application/javascript" src="script/main.js"></script>
+    <link rel="stylesheet" href="src/simple.css">
+    <script type="application/javascript" src="src/Sortable.min.js"></script>
+    <script type="application/javascript" src="src/simple.js"></script>
 </head>
 <body>
-<template id="template_list">
-    <table class="table-list">
+<div class="content">
+    <form class="pure-form">
+    <table class="pure-table pure-table-striped w-100 ">
         <thead>
         <tr>
+            <th colspan="2">
+
+            </th>
             <th>
-                <span class="lang" data-tag="task"></span>
+                Aufgabe
             </th>
             <th>
                 Prio
@@ -30,18 +31,30 @@
             <th>
                 Denkaufwand
             </th>
-            <th>
+            <th class="w-100">
                 Notizen
+            </th>
+            <th>
+                <button class="pure-button pure-button-primary" type="button" id="addRow">Neu</button>
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="list">
 
         </tbody>
     </table>
-</template>
+    </form>
+</div>
 <template id="template_todo">
     <tr>
+        <td>
+            <div class="handle">
+                ↕
+            </div>
+        </td>
+        <td>
+            <input class="pure-checkbox" type="checkbox" name="taskdone" onchange="strikeRow(this);">
+        </td>
         <td>
             <input name="taskname" type="text">
         </td>
@@ -61,25 +74,16 @@
             <textarea name="tasknotes"></textarea>
         </td>
         <td>
-            <button onclick="deleteTask(this);"></button>
+            <button type="button" class="pure-button" onclick="deleteTask(this);">löschen</button>
         </td>
     </tr>
 </template>
+<textarea style="width: 99%;" class="export"></textarea>
+<button class="exportbtn pure-button pure-button-primary" onclick="exportText();">Export</button>
+<button class="importbtn pure-button pure-button-primary" onclick="importText();">Import</button>
+<div id="notifications">
 
-<div class="main">
-    <div class="menu-bar">
-
-    </div>
-    <div class="lists-container">
-
-    </div>
-    <div class="quickactions-container">
-        <button id="addList"><span class="lang" data-tag="newListBtn"></span></button>
-    </div>
-    <div class="notifications-container">
-
-    </div>
 </div>
-
+<button class="savebtn pure-button pure-button-primary" onclick="save();">Speichern</button>
 </body>
 </html>

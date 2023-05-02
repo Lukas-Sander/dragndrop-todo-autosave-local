@@ -1,3 +1,5 @@
+const todoData = 'todoTest';
+
 function exportText() {
     let content = document.querySelector('#list').innerHTML;
     let data = {};
@@ -29,46 +31,52 @@ function importText() {
 }
 
 function save() {
-    let content = document.querySelector('#list').innerHTML;
-    let data = {};
-    data.html = content;
-    data.form = [];
+    let data = [];
 
     document.querySelectorAll('form tbody tr').forEach((e, i) => {
-        let row = [];
+        let row = {};
         e.querySelectorAll('input, textarea').forEach((v) => {
+
             if(v.type == 'checkbox') {
-                row.push(v.checked);
+                row[v.name] = v.checked;
             }
             else {
-                row.push(v.value);
+                row[v.name] = v.value;
             }
         });
-        data.form.push(row);
+        data.push(row);
     });
 
-    localStorage.setItem('todo', JSON.stringify(data));
+    localStorage.setItem(todoData, JSON.stringify(data));
     notify('Gespeichert!');
 }
 
 function load() {
-    let storage = localStorage.getItem('todo');
+    let storage = localStorage.getItem(todoData);
     if(!storage) {
         return;
     }
     storage = JSON.parse(storage);
-    document.querySelector('#list').innerHTML = storage.html;
 
-    document.querySelectorAll('form tbody tr').forEach((e, i) => {
-        e.querySelectorAll('input, textarea').forEach((v, ib) => {
-            if(v.type == 'checkbox') {
-                v.checked = (storage.form[i][ib]);
+    storage.forEach((r)=> {
+        addRow();
+        let newRow = container.querySelector('tr:last-child');
+        for(const [key, value] of Object.entries(r)) {
+            let input = newRow.querySelector('[name="' + key + '"]');
+
+            if(key == 'taskdone') {
+                input.checked = value;
+
+                if(value) {
+                    newRow.classList.add('strikethrough')
+                }
             }
             else {
-                v.value = (storage.form[i][ib]);
+                input.value = value;
             }
-        });
-    });
+
+        }
+    })
     notify('Geladen!');
 
 }
@@ -103,30 +111,41 @@ function strikeRow(e) {
     }
 }
 
+function addRow() {
+    const clone = template.content.cloneNode(true);
+    container.append(clone);
+
+    sortable = new Sortable(container, {
+        handle: '.handle',
+        animation: 150
+    });
+}
+
+let sortable;
+let container;
+let template;
+
 document.addEventListener('DOMContentLoaded', () => {
+    container = document.querySelector('#list');
+    template = document.querySelector('#template_todo');
+
+
     load();
     autoSave();
+
 
     document.querySelector('form').addEventListener('submit', (e) => {
         e.stopPropagation();
         e.preventDefault();
     });
 
-
-    let template = document.querySelector('#template_todo');
-    let container = document.querySelector('#list');
-    let sortable = new Sortable(container, {
+    sortable = new Sortable(container, {
         handle: '.handle',
         animation: 150
     });
 
-    document.querySelector('#addRow').addEventListener('click', ()=> {
-        const clone = template.content.cloneNode(true);
-        container.append(clone);
 
-        sortable = new Sortable(container, {
-            handle: '.handle',
-            animation: 150
-        });
+    document.querySelector('#addRow').addEventListener('click', ()=> {
+        addRow();
     });
 });

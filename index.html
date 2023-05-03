@@ -2,67 +2,129 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>To-Do</title>
     <link rel="stylesheet" href="src/simple.css">
+    <link rel="stylesheet" href="src/yseditor.min.css">
     <script type="application/javascript" src="src/Sortable.min.js"></script>
+    <script type="application/javascript" src="src/yseditor.min.js"></script>
     <script type="application/javascript" src="src/simple.js"></script>
 </head>
-<body>
-<!--<button class="options-trigger">☰</button>-->
+<body class="light">
 
-<button class="options-trigger" style="
-    border: none;
-    width: 3rem;
-    height: 3rem;
-    background: brown;
-    color: white;
-    font-size: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 1;
-    cursor: pointer;
-">☰</button>
+<!--<button class="options-trigger" style="-->
+<!--    border: none;-->
+<!--    width: 3rem;-->
+<!--    height: 3rem;-->
+<!--    background: brown;-->
+<!--    color: white;-->
+<!--    font-size: 2rem;-->
+<!--    display: flex;-->
+<!--    justify-content: center;-->
+<!--    align-items: center;-->
+<!--    line-height: 1;-->
+<!--    cursor: pointer;-->
+<!--">☰</button>-->
 
-<div class="options">
+<!--<div class="options">-->
 
+<!--</div>-->
+<div class="topbar bg-accent p-l-1 p-r-1">
+    <button class="btn btn-icon btn-circle btn-icon-menu float-right options-trigger"></button>
+    <div class="menu">
+        <div class="row align-items-center">
+            <button class="btn btn-icon btn-circle btn-icon-close options-close"></button>
+            <h3>
+                Optionen
+            </h3>
+            <ul>
+                <li>
+                    <a class="btn"><span class="icon icon-save"></span> manuell speichern</a>
+                </li>
+                <li>
+                    <a class="btn"><span class="icon icon-txt"></span> Textdatei herunterladen</a>
+                </li>
+                <li>
+                    <a class="btn"><span class="icon icon-import"></span> aus Textdatei importieren</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-<div class="content">
+<div class="content p-1">
     <form>
-    <table class="pure-table pure-table-striped w-100 ">
-        <thead>
-        <tr>
-            <th colspan="2">
+        <div class="row header">
+            <div class="col-1">
 
-            </th>
-            <th>
-                Aufgabe
-            </th>
-            <th>
-                Prio
-            </th>
-            <th>
-                Start
-            </th>
-            <th>
-                Ende
-            </th>
-            <th>
-                Denkaufwand
-            </th>
-            <th class="w-100">
-                Notizen
-            </th>
-            <th>
-                <button class="pure-button pure-button-primary" type="button" id="addRow">Neu</button>
-            </th>
-        </tr>
-        </thead>
-        <tbody id="list">
+            </div>
+            <div class="col-3">
+                <strong>
+                    Aufgabe
+                </strong>
+            </div>
+            <div class="col-1">
+                <strong>
+                    Prio
+                </strong>
+            </div>
+            <div class="col-2">
+                <strong>
+                    Start
+                </strong>
+            </div>
+            <div class="col-2">
+                <strong>
+                    Ende
+                </strong>
+            </div>
+            <div class="col-1">
+                <strong>
+                    Denkaufwand
+                </strong>
+            </div>
+            <div class="col-6">
+                <strong>
+                    Notizen
+                </strong>
+            </div>
+            <div class="col-1">
 
-        </tbody>
-    </table>
-    </form>
+            </div>
+        </div>
+        <!--            <table class="pure-table pure-table-striped w-100 ">-->
+        <!--                <thead>-->
+        <!--                <tr>-->
+        <!--                    <th colspan="2">-->
+
+        <!--                    </th>-->
+        <!--                    <th>-->
+        <!--                        Aufgabe-->
+        <!--                    </th>-->
+        <!--                    <th>-->
+        <!--                        Prio-->
+        <!--                    </th>-->
+        <!--                    <th>-->
+        <!--                        Start-->
+        <!--                    </th>-->
+        <!--                    <th>-->
+        <!--                        Ende-->
+        <!--                    </th>-->
+        <!--                    <th>-->
+        <!--                        Denkaufwand-->
+        <!--                    </th>-->
+        <!--                    <th class="w-100">-->
+        <!--                        Notizen-->
+        <!--                    </th>-->
+        <!--                    <th>-->
+
+        <!--                    </th>-->
+        <!--                </tr>-->
+        <!--                </thead>-->
+        <!--                <tbody id="list">-->
+
+        <!--                </tbody>-->
+        <!--            </table>-->
+            </form>
 </div>
 <template id="template_todo">
     <tr>
@@ -97,12 +159,13 @@
         </td>
     </tr>
 </template>
-<textarea style="width: 99%;" class="export"></textarea>
-<button class="exportbtn pure-button pure-button-primary" onclick="exportText();">Export</button>
-<button class="importbtn pure-button pure-button-primary" onclick="importText();">Import</button>
+<!--<textarea style="width: 99%;" class="export"></textarea>-->
+<!--<button class="exportbtn pure-button pure-button-primary" onclick="exportText();">Export</button>-->
+<!--<button class="importbtn pure-button pure-button-primary" onclick="importText();">Import</button>-->
 <div id="notifications">
 
 </div>
-<button class="savebtn pure-button pure-button-primary" onclick="save();">Speichern</button>
+<!--<button class="savebtn pure-button pure-button-primary" onclick="save();">Speichern</button>-->
+<button class="btn btn-circle btn-icon btn-icon-add bg-primary p-1" title="neue Aufgabe" type="button" id="addRow"></button>
 </body>
 </html>

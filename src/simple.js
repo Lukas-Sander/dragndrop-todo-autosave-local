@@ -1,5 +1,9 @@
 const todoData = 'todoTest';
 
+let sortable;
+let container;
+let template;
+
 function exportText() {
     let content = document.querySelector('#list').innerHTML;
     let data = {};
@@ -80,12 +84,14 @@ function load() {
     notify('Geladen!');
 
 }
+
 function autoSave() {
     setTimeout(() => {
         save();
         autoSave();
     }, 30000);
 }
+
 function notify(txt) {
     let notifications = document.querySelector('#notifications');
     let msg = document.createElement('P');
@@ -121,20 +127,13 @@ function addRow() {
     });
 }
 
-let sortable;
-let container;
-let template;
-
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
-
     element.style.display = 'none';
     document.body.appendChild(element);
-
     element.click();
-
     document.body.removeChild(element);
 }
 
@@ -144,8 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
     template = document.querySelector('#template_todo');
 
 
-    load();
-    autoSave();
+    // load();
+    // autoSave();
 
 
     document.querySelector('form').addEventListener('submit', (e) => {
@@ -153,10 +152,22 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
     });
 
-    sortable = new Sortable(container, {
-        handle: '.handle',
-        animation: 150
-    });
+    let optionsmenu = document.querySelector('.menu');
+    let body = document.querySelector('body');
+
+    document.querySelector('.options-trigger').addEventListener('click', () => {
+        optionsmenu.classList.add('active');
+        body.classList.add('body-inactive');
+    })
+    document.querySelector('.options-close').addEventListener('click', () => {
+        optionsmenu.classList.remove('active');
+        body.classList.remove('body-inactive');
+    })
+
+    // sortable = new Sortable(container, {
+    //     handle: '.handle',
+    //     animation: 150
+    // });
 
 
     document.querySelector('#addRow').addEventListener('click', ()=> {

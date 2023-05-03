@@ -15,3 +15,11 @@
 - [ ] implement accounts and a small synchronization server
 - [ ] implement options
 - [ ] rework columns. maybe dynamic via options?
+
+
+
+
+
+- https://fonts.google.com/icons?hl=de&selected=Material+Symbols+Rounded:delete:FILL@0;wght@400;GRAD@0;opsz@48&icon.style=Rounded
+- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+- https://github.com/yusufsefasezer/ysEditor.js/

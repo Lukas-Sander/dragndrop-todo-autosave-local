@@ -222,3 +222,14 @@ body.light .menu {
 .p-r-1 {
     padding-right: 1rem;
 }
+
+.header {
+    display: none;
+}
+
+/* RESPONSIVE SM */
+@media screen and (min-width: 550px) {
+    .header {
+        display: flex;
+    }
+}

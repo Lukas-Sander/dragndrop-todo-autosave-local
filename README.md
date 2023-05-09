@@ -10,6 +10,7 @@
 - [x] save data only, reconstruct HTML (its not needed)
   - [x] requires restructuring of save-data to include indices
   - [ ] resize textareas on loading data. maybe save the size of the textarea?
+- [ ] show number of open tasks of the day in tab
 - [ ] make table responsive
 - [ ] responsive, mobile-first design in general
 - [ ] rework saving and loading to use indexedDB instead

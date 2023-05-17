@@ -104,7 +104,7 @@ function notify(txt) {
 
 function deleteTask(e) {
     if(confirm('löschen?')) {
-        e.closest('tr').remove();
+        e.closest('.card').remove();
     }
 }
 
@@ -137,9 +137,30 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
+function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    let day = today.getDate();
+    let mon = today.getMonth()+1;
+    let year = today.getFullYear();
+    day = checkTime(day);
+    mon = checkTime(mon);
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('time').innerText = day + "." + mon + "." + year + " " + h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 // download("hello.txt","This is the content of my file :)");
-    container = document.querySelector('#list');
+    container = document.querySelector('.card-container');
     template = document.querySelector('#template_todo');
 
 
@@ -147,10 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // autoSave();
 
 
-    document.querySelector('form').addEventListener('submit', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-    });
+    // document.querySelector('form').addEventListener('submit', (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    // });
 
     let optionsmenu = document.querySelector('.menu');
     let body = document.querySelector('body');
@@ -164,13 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
         body.classList.remove('body-inactive');
     })
 
-    // sortable = new Sortable(container, {
-    //     handle: '.handle',
-    //     animation: 150
-    // });
+    sortable = new Sortable(container, {
+        handle: '.handle',
+        animation: 150
+    });
 
 
     document.querySelector('#addRow').addEventListener('click', ()=> {
         addRow();
     });
+    startTime();
+
 });

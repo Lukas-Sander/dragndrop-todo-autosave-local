@@ -307,6 +307,7 @@ body.light .menu {
     height: 1.5rem;
     display: block;
     cursor: pointer;
+    background-color: white;
 }
 
 #time {
@@ -323,18 +324,18 @@ body.light .menu {
     display: block;
     width: 3.5rem;
     height: 1.5rem;
-    padding: 0;
-    margin: 0;
-    border: none;
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*border: none;*/
     /*background: transparent;*/
 
 }
 
 .card [name="taskname"] {
     font-weight: bold;
-    background: transparent;
-    border: none;
-    padding: 0;
+    /*background: transparent;*/
+    /*border: none;*/
+    /*padding: 0;*/
     font-size: 1.25em;
 }
 
@@ -358,7 +359,7 @@ body.light .menu {
 }
 [name="dividertext"] {
     color: white;
-    background: none;
+    background: gray;
     text-align: center;
     border: none;
     padding: 0;

@@ -9,6 +9,11 @@
     <script type="application/javascript" src="src/Sortable.min.js"></script>
     <script type="application/javascript" src="src/yseditor.min.js"></script>
     <script type="application/javascript" src="src/simple.js"></script>
+<!--    <style id="manualstyle">-->
+<!--        .card {-->
+<!--            background: red;-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body class="light">
 
@@ -54,7 +59,9 @@
 </div>
 <div class="content p-1">
     <div class="card-container row wrap">
-
+        <div class="card divider">
+            <input type="text" name="dividertext">
+        </div>
         <!--    Beispiel zum herumbasteln der Optik    -->
 <!--        <div class="card">-->
 <!--            <div class="row w-100">-->
@@ -98,7 +105,6 @@
             </div>
         </div>
         <div class="row w-100 justify">
-            <div class="delete img-trash" onclick="deleteTask(this);"></div>
             <label class="w-50 row">
                 <span class="img-prio"></span>
                 <input name="prio" type="number" min="0">
@@ -107,6 +113,7 @@
                 <span class="img-think"></span>
                 <input name="denkaufwand" type="number" min="0" class="w-50">
             </label>
+            <div class="delete img-trash" onclick="deleteTask(this);"></div>
         </div>
         <div class="row w-100">
             <input type="date" name="start" class="w-50">
@@ -130,5 +137,6 @@
 </div>
 <!--<button class="savebtn pure-button pure-button-primary" onclick="save();">Speichern</button>-->
 <button class="btn btn-circle btn-icon btn-icon-add bg-primary p-1" title="neue Aufgabe" type="button" id="addRow"></button>
+
 </body>
 </html>

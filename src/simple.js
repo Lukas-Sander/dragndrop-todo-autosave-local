@@ -197,4 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     startTime();
 
+    // document.querySelector('#manualstyle').innerHTML = '.card{background:blue;}'
+
 });

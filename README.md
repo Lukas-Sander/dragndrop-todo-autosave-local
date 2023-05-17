@@ -20,8 +20,20 @@
 9. [x] rework columns. maybe dynamic via options?
 10. [ ] clean up code
 
-Progress: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜
+## Roadmap Version 0.2
+1. [ ] get regular code to work again (saving, loading and that stuff)
+2. [ ] finish new menu
+3. [ ] change saving to always save after changes
+4. [ ] add info of last save time
+5. [ ] finish styling (screw material design, just do what works for me)
+6. [ ] add divider functionality
+7. [ ] add coloring for due and overdue cards
+8. [ ] cleanup
 
+Progress: ⬜⬜⬜⬜⬜⬜⬜⬜
+
+## Roadmap Version 0.3
+1.[ ] 
 
 
 ## Resources

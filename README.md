@@ -20,7 +20,7 @@
 9. [x] rework columns. maybe dynamic via options?
 10. [ ] clean up code
 
-## Progress: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜
+Progress: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜
 
 
 

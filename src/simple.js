@@ -187,7 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sortable = new Sortable(container, {
         handle: '.handle',
-        animation: 150
+        animation: 150,
+        // filter: '.divider'
     });
 
 

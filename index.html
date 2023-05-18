@@ -5,138 +5,84 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>To-Do</title>
     <link rel="stylesheet" href="src/simple.css">
-    <link rel="stylesheet" href="src/yseditor.min.css">
     <script type="application/javascript" src="src/Sortable.min.js"></script>
-    <script type="application/javascript" src="src/yseditor.min.js"></script>
     <script type="application/javascript" src="src/simple.js"></script>
-<!--    <style id="manualstyle">-->
-<!--        .card {-->
-<!--            background: red;-->
-<!--        }-->
-<!--    </style>-->
+    <style id="manualstyle"></style>
 </head>
 <body class="light">
-
-<!--<button class="options-trigger" style="-->
-<!--    border: none;-->
-<!--    width: 3rem;-->
-<!--    height: 3rem;-->
-<!--    background: brown;-->
-<!--    color: white;-->
-<!--    font-size: 2rem;-->
-<!--    display: flex;-->
-<!--    justify-content: center;-->
-<!--    align-items: center;-->
-<!--    line-height: 1;-->
-<!--    cursor: pointer;-->
-<!--">☰</button>-->
-
-<!--<div class="options">-->
-
-<!--</div>-->
-<div class="topbar bg-accent p-l-1 p-r-1">
-    <div id="time"></div>
-    <button class="btn btn-icon btn-circle btn-icon-menu float-right options-trigger"></button>
-    <div class="menu">
-        <div class="row align-items-center">
-            <button class="btn btn-icon btn-circle btn-icon-close options-close"></button>
-            <h3>
-                Optionen
-            </h3>
-            <ul>
-                <li>
-                    <a class="btn"><span class="icon icon-save"></span> manuell speichern</a>
-                </li>
-                <li>
-                    <a class="btn"><span class="icon icon-txt"></span> Textdatei herunterladen</a>
-                </li>
-                <li>
-                    <a class="btn"><span class="icon icon-import"></span> aus Textdatei importieren</a>
-                </li>
-            </ul>
+    <div class="topbar bg-accent p-l-1 p-r-1">
+        <div id="time"></div>
+        <div class="lastsave">
+            Letzte Speicherung: <span class="lastsave-data"></span>
+        </div>
+        <button class="btn btn-icon btn-circle btn-icon-menu float-right options-trigger"></button>
+        <div class="menu">
+            <div class="row align-items-center">
+                <button class="btn btn-icon btn-circle btn-icon-close options-close"></button>
+                <h3>
+                    Optionen
+                </h3>
+            </div>
+            <p>
+                <strong>Export</strong><br>
+                <button class="download-txt iconbtn"><span class="img-txt"></span> Textdatei herunterladen</button>
+            </p>
+            <p>
+                <strong>Import</strong><br>
+                <input type="file" multiple="false" accept=".txt" id="importFile">
+                <button class="upload-txt iconbtn"><span class="icon img-import"></span> aus Textdatei importieren</button>
+            </p>
         </div>
     </div>
 </div>
-<div class="content p-1">
-    <div class="card-container row wrap">
-        <div class="card divider">
-            <textarea name="dividertext" rows="1"></textarea>
-        </div>
-        <!--    Beispiel zum herumbasteln der Optik    -->
-<!--        <div class="card">-->
-<!--            <div class="row w-100">-->
-<!--                <textarea name="taskname" class="grow">Beispielaufgabe</textarea>-->
-<!--                <div>-->
-<!--                    <div class="handle"></div>-->
-<!--                    <input type="checkbox" name="taskdone">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row w-100 justify">-->
-<!--                <div class="delete img-trash" onclick="deleteTask(this);"></div>-->
-<!--                <label class="w-50 row">-->
-<!--                    <span class="img-prio"></span>-->
-<!--                    <input name="prio" type="number" min="0">-->
-<!--                </label>-->
-<!--                <label class="w-50 row">-->
-<!--                    <span class="img-think"></span>-->
-<!--                    <input name="denkaufwand" type="number" min="0" class="w-50">-->
-<!--                </label>-->
-<!--            </div>-->
-<!--            <div class="row w-100">-->
-<!--                <input type="date" name="start" class="w-50">-->
-<!--                <input type="date" name="ende" class="w-50">-->
-<!--            </div>-->
-<!--            <div class="row w-100">-->
-<!--                <textarea class="w-100" name="notizen">-->
-
-<!--                </textarea>-->
-<!--            </div>-->
-<!--        </div>-->
-    </div>
-
+<div class="content p-05 card-container">
 </div>
 <template id="template_todo">
     <div class="card">
         <div class="row w-100">
-            <textarea name="taskname" class="grow"></textarea>
+            <textarea name="taskname" class="grow" onmouseup="save();" onchange="save();"></textarea>
             <div>
                 <div class="handle"></div>
-                <input type="checkbox" name="taskdone">
+                <input type="checkbox" name="taskdone" onchange="strikeRow(this);">
             </div>
         </div>
-        <div class="row w-100 justify">
-            <label class="w-50 row">
-                <span class="img-prio"></span>
-                <input name="prio" type="number" min="0">
-            </label>
-            <label class="w-50 row">
-                <span class="img-think"></span>
-                <input name="denkaufwand" type="number" min="0" class="w-50">
-            </label>
-            <div class="delete img-trash" onclick="deleteTask(this);"></div>
-        </div>
-        <div class="row w-100">
-            <input type="date" name="start" class="w-50">
-            <input type="date" name="ende" class="w-50">
-        </div>
-        <div class="row w-100">
-            <textarea class="w-100" name="notizen"></textarea>
-        </div>
+        <details ontoggle="save();">
+            <summary>Details</summary>
+            <div class="row w-100 justify">
+                <label class="w-50 row">
+                    <span class="img-prio"></span>
+                    <input name="prio" type="number" min="0" max="10" onchange="save();">
+                </label>
+                <label class="w-50 row">
+                    <span class="img-think"></span>
+                    <input name="denkaufwand" type="number" min="0" max="10" class="w-50" onchange="save();">
+                </label>
+                <div class="delete img-trash" onclick="deleteTask(this);"></div>
+            </div>
+            <div class="row w-100">
+                <input type="date" name="start" class="w-50" onchange="save();">
+                <span class="p-l-1 p-r-1">bis</span>
+                <input type="date" name="ende" class="w-50" onchange="save();">
+            </div>
+            <div class="row w-100">
+                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();"></textarea>
+            </div>
+        </details>
     </div>
 </template>
 <template id="template_divider">
-    <div class="card divider">
-        <textarea name="dividertext" rows="1"></textarea>
+    <div class="card divider row">
+        <textarea name="dividertext" rows="1" class="grow" onmouseup="save();" onchange="save();"></textarea>
+        <div class="delete img-trash" onclick="deleteTask(this);"></div>
     </div>
 </template>
-<!--<textarea style="width: 99%;" class="export"></textarea>-->
-<!--<button class="exportbtn pure-button pure-button-primary" onclick="exportText();">Export</button>-->
-<!--<button class="importbtn pure-button pure-button-primary" onclick="importText();">Import</button>-->
 <div id="notifications">
-
+    
 </div>
-<!--<button class="savebtn pure-button pure-button-primary" onclick="save();">Speichern</button>-->
-<button class="btn btn-circle btn-icon btn-icon-add bg-primary p-1" title="neue Aufgabe" type="button" id="addRow"></button>
+<div class="button-container">
+    <button class="btn btn-circle btn-icon btn-icon-add bg-primary p-1" title="neue Aufgabe" type="button" id="addRow"></button>
+    <button class="btn btn-circle btn-icon btn-icon-add bg-secondary p-1" title="neuer Aufteiler" type="button" id="addDivider"></button>
+</div>
 
 </body>
 </html>

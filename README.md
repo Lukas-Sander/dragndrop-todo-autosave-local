@@ -9,7 +9,7 @@
 ## Roadmap
 1. [x] save data only, reconstruct HTML (its not needed)
    1. [x] requires restructuring of save-data to include indices
-   2. [ ] resize textareas on loading data. maybe save the size of the textarea?
+   2. [x] resize textareas on loading data. maybe save the size of the textarea?
 2. [ ] show number of open tasks of the day in tab
 3. [x] make table responsive
 4. [x] responsive, mobile-first design in general
@@ -37,15 +37,17 @@
 Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 
 ## Roadmap Version 0.3
-- [ ] add drag handle to dividers
+- [x] add drag handle to dividers
 - [ ] add legend
 - [ ] proper english
+- [ ] show number of open tasks of the day in tab
 - [ ] add options:
   - [ ] language
   - [ ] card width
   - [ ] colors and color rules?
   - [ ] font family
   - [ ] light / dark mode
+- [ ] cleanup
 
 
 ## Resources

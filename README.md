@@ -37,7 +37,15 @@
 Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 
 ## Roadmap Version 0.3
-1.[ ] 
+- [ ] add drag handle to dividers
+- [ ] add legend
+- [ ] proper english
+- [ ] add options:
+  - [ ] language
+  - [ ] card width
+  - [ ] colors and color rules?
+  - [ ] font family
+  - [ ] light / dark mode
 
 
 ## Resources

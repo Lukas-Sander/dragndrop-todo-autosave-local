@@ -299,6 +299,11 @@ function clearBoard() {
     container.innerHTML = '';
 }
 
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight - 4)+"px";
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     container = document.querySelector('.card-container');
     template = document.querySelector('#template_todo');

@@ -40,13 +40,13 @@
 <template id="template_todo">
     <div class="card">
         <div class="row w-100">
-            <textarea name="taskname" class="grow" onmouseup="save();" onchange="save();"></textarea>
+            <textarea name="taskname" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
             <div>
                 <div class="handle"></div>
                 <input type="checkbox" name="taskdone" onchange="strikeRow(this);">
             </div>
         </div>
-        <details ontoggle="save();">
+        <details ontoggle="save();" open>
             <summary>Details</summary>
             <div class="row w-100 justify">
                 <label class="w-50 row">
@@ -65,14 +65,14 @@
                 <input type="date" name="ende" class="w-50" onchange="save();">
             </div>
             <div class="row w-100">
-                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();"></textarea>
+                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
             </div>
         </details>
     </div>
 </template>
 <template id="template_divider">
     <div class="card divider row">
-        <textarea name="dividertext" rows="1" class="grow" onmouseup="save();" onchange="save();"></textarea>
+        <textarea name="dividertext" rows="1" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
         <div class="delete img-trash" onclick="deleteTask(this);"></div>
     </div>
 </template>

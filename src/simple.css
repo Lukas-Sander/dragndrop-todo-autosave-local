@@ -80,7 +80,7 @@ th,td {
     width: 0;
 }
 textarea {
-    resize: vertical;
+    resize: none;
 }
 
 .handle {
@@ -233,7 +233,7 @@ body.light .menu {
 
 /* CARD DESIGN */
 .card {
-    width: 20rem;
+    width: 28rem;
     max-width: 100%;
     margin: 0.25rem auto;
     background: #dddddd;
@@ -350,7 +350,7 @@ body.light .menu {
     display: block;
     column-count: auto;
     column-fill: balance;
-    column-width: 20rem;
+    column-width: 28rem;
     column-rule: 0.25rem solid black;
     column-gap: 0.5rem;
 }
@@ -422,11 +422,11 @@ summary {
 .status-start-past {
     background: cyan;
 }
-.status-end-today {
-    background: yellow;
-}
 .status-start-today {
     background: green;
+}
+.status-end-today {
+    background: yellow;
 }
 .status-end-past {
     background: red;
@@ -434,4 +434,9 @@ summary {
 
 .card.strikethrough {
     background: #dddddd;
+}
+
+
+.content {
+    padding-bottom: 5rem;
 }

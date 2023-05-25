@@ -36,8 +36,9 @@
 
 Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 
-## Roadmap Version 0.3
+## Roadmap Version 1.0
 - [x] add drag handle to dividers
+- [ ] switch to indexedDB
 - [ ] add legend
 - [ ] proper english
 - [ ] show number of open tasks of the day in tab
@@ -47,6 +48,10 @@ Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
   - [ ] colors and color rules?
   - [ ] font family
   - [ ] light / dark mode
+  - [ ] available symbol buttons for textareas
+- [ ] add a version check via AJAX
+- [ ] autofocus task name when adding one
+- [ ] add placeholder texts for card fields
 - [ ] cleanup
 
 

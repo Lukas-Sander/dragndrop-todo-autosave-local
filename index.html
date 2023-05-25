@@ -78,12 +78,27 @@
     </div>
 </template>
 <div id="notifications">
-    
+
 </div>
 <div class="button-container">
     <button class="btn btn-circle btn-icon btn-icon-add bg-primary p-1" title="neue Aufgabe" type="button" id="addRow"></button>
     <button class="btn btn-circle btn-icon btn-icon-add bg-secondary p-1" title="neuer Aufteiler" type="button" id="addDivider"></button>
 </div>
 
+<script>
+    fetch('https://raw.githubusercontent.com/Lukas-Sander/dragndrop-todo-autosave-local/main/version.txt', {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+    })
+    .then(response => response.text())
+    .then((response) => {
+        let v = response.split(".");
+        console.log(v);
+    });
+</script>
 </body>
 </html>

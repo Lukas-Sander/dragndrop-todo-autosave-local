@@ -10,30 +10,30 @@
     <style id="manualstyle"></style>
 </head>
 <body class="light">
-    <div class="topbar bg-accent p-l-1 p-r-1">
-        <div id="time"></div>
-        <div class="lastsave">
-            Letzte Speicherung: <span class="lastsave-data"></span>
-        </div>
-        <button class="btn btn-icon btn-circle btn-icon-menu float-right options-trigger"></button>
-        <div class="menu">
-            <div class="row align-items-center">
-                <button class="btn btn-icon btn-circle btn-icon-close options-close"></button>
-                <h3>
-                    Optionen
-                </h3>
-            </div>
-            <p>
-                <strong>Export</strong><br>
-                <button class="download-txt iconbtn"><span class="img-txt"></span> Textdatei herunterladen</button>
-            </p>
-            <p>
-                <strong>Import</strong><br>
-                <input type="file" multiple="false" accept=".txt" id="importFile">
-                <button class="upload-txt iconbtn"><span class="icon img-import"></span> aus Textdatei importieren</button>
-            </p>
-        </div>
+<div class="topbar bg-accent p-l-1 p-r-1">
+    <div id="time"></div>
+    <div class="lastsave">
+        Letzte Speicherung: <span class="lastsave-data"></span>
     </div>
+    <button class="btn btn-icon btn-circle btn-icon-menu float-right options-trigger"></button>
+    <div class="menu">
+        <div class="row align-items-center">
+            <button class="btn btn-icon btn-circle btn-icon-close options-close"></button>
+            <h3>
+                Optionen
+            </h3>
+        </div>
+        <p>
+            <strong>Export</strong><br>
+            <button class="download-txt iconbtn"><span class="img-txt"></span> Textdatei herunterladen</button>
+        </p>
+        <p>
+            <strong>Import</strong><br>
+            <input type="file" multiple="false" accept=".txt" id="importFile">
+            <button class="upload-txt iconbtn"><span class="icon img-import"></span> aus Textdatei importieren</button>
+        </p>
+    </div>
+</div>
 </div>
 <div class="content p-05 card-container">
 </div>
@@ -65,7 +65,7 @@
                 <input type="date" name="ende" class="w-50" onchange="save();">
             </div>
             <div class="row w-100">
-                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
+                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);" onfocusin="addTextareaButtons(this);" onfocusout="removeTextareaButtons();"></textarea>
             </div>
         </details>
     </div>
@@ -77,6 +77,12 @@
         <div class="handle"></div>
     </div>
 </template>
+<div id="element_container_inv" class="d-none">
+    <div class="textarea-buttons">
+        <button>⬜</button>
+        <button>✅</button>
+    </div>
+</div>
 <div id="notifications">
 
 </div>
@@ -86,19 +92,19 @@
 </div>
 
 <script>
-    fetch('https://raw.githubusercontent.com/Lukas-Sander/dragndrop-todo-autosave-local/main/version.txt', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-    })
-    .then(response => response.text())
-    .then((response) => {
-        let v = response.split(".");
-        console.log(v);
-    });
+    // fetch('https://raw.githubusercontent.com/Lukas-Sander/dragndrop-todo-autosave-local/main/version.txt', {
+    //     method: 'GET',
+    //     mode: 'cors',
+    //     cache: 'no-cache',
+    //     headers: {
+    //         'Content-Type': 'text/plain'
+    //     },
+    // })
+    // .then(response => response.text())
+    // .then((response) => {
+    //     let v = response.split(".");
+    //     console.log(v);
+    // });
 </script>
 </body>
 </html>

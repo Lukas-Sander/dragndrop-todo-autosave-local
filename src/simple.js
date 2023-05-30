@@ -5,6 +5,7 @@ let container;
 let template;
 let templateDivider;
 let lastsavetext;
+let textareaButtons;
 
 function exportText() {
     let content = document.querySelector('#list').innerHTML;
@@ -57,10 +58,10 @@ function getData()
     document.querySelectorAll('.card-container .card').forEach((e, i) => {
         let row = {};
         if(e.classList.contains('divider')) {
-            row['type'] = 'divider'; 
+            row['type'] = 'divider';
         }
         else {
-            row['type'] = 'card'; 
+            row['type'] = 'card';
         }
 
         let open = e.querySelector('details');
@@ -79,7 +80,7 @@ function getData()
             else {
                 dat[v.name] = v.value;
             }
-            
+
             if(v.type == 'textarea') {
                 let subrow = {};
                 subrow['height'] = v.style.height;
@@ -304,6 +305,38 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight)+"px";
 }
 
+function addTextareaButtons(el) {
+    setTimeout(() => {
+        el.parentNode.append(textareaButtons);
+    }, 250);
+}
+
+function removeTextareaButtons() {
+    setTimeout(() => {
+        element_container_inv.append(textareaButtons);
+    }, 200);
+}
+
+function insertAtCursor(myField, myValue) {
+    myField = myField.closest('.row').querySelector('textarea');
+    //IE support
+    if (document.selection) {
+        myField.focus();
+        sel = document.selection.createRange();
+        sel.text = myValue;
+    }
+    //MOZILLA and others
+    else if (myField.selectionStart || myField.selectionStart === '0') {
+        var startPos = myField.selectionStart;
+        var endPos = myField.selectionEnd;
+        myField.value = myField.value.substring(0, startPos)
+            + myValue
+            + myField.value.substring(endPos, myField.value.length);
+    } else {
+        myField.value += myValue;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     container = document.querySelector('.card-container');
     template = document.querySelector('#template_todo');
@@ -312,6 +345,15 @@ document.addEventListener('DOMContentLoaded', () => {
     importFile = document.querySelector('#importFile');
     let menuTrigger = document.querySelector('.options-trigger');
     let menuCloseTrigger = document.querySelector('.options-close');
+    let element_container_inv = document.querySelector('#element_container_inv');
+
+    textareaButtons = document.querySelector('.textarea-buttons');
+
+    textareaButtons.querySelectorAll('button').forEach((e) => {
+        e.addEventListener('click', () => {
+            insertAtCursor(e, e.innerText);
+        })
+    });
 
     load();
 

@@ -52,6 +52,8 @@ Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 - [ ] autofocus task name when adding one
 - [ ] add placeholder texts for card fields
 - [ ] cleanup
+  - [ ] split js files
+  - [ ] streamline styling and functions
 
 
 ## Resources

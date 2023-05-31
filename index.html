@@ -65,7 +65,7 @@
                 <input type="date" name="ende" class="w-50" onchange="save();">
             </div>
             <div class="row w-100">
-                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);" onfocusin="addTextareaButtons(this);" onfocusout="removeTextareaButtons();"></textarea>
+                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
             </div>
         </details>
     </div>
@@ -77,12 +77,6 @@
         <div class="handle"></div>
     </div>
 </template>
-<div id="element_container_inv" class="d-none">
-    <div class="textarea-buttons">
-        <button>⬜</button>
-        <button>✅</button>
-    </div>
-</div>
 <div id="notifications">
 
 </div>

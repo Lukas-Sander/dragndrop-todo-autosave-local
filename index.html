@@ -6,6 +6,7 @@
     <title>To-Do</title>
     <link rel="stylesheet" href="src/simple.css">
     <script type="application/javascript" src="src/Sortable.min.js"></script>
+    <script type="application/javascript" src="src/dexie.min.js"></script>
     <script type="application/javascript" src="src/simple.js"></script>
     <style id="manualstyle"></style>
 </head>
@@ -38,7 +39,7 @@
 <div class="content p-05 card-container">
 </div>
 <template id="template_todo">
-    <div class="card">
+    <div class="card" data-id="">
         <div class="row w-100">
             <textarea name="taskname" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
             <div>
@@ -71,7 +72,7 @@
     </div>
 </template>
 <template id="template_divider">
-    <div class="card divider row">
+    <div class="card divider row" data-id="">
         <textarea name="dividertext" rows="1" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
         <div class="delete img-trash" onclick="deleteTask(this);"></div>
         <div class="handle"></div>

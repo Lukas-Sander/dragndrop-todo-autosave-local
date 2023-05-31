@@ -1,4 +1,4 @@
-const todoData = 'todoV0-2';
+// const todoData = 'todoV0-2';
 
 let sortable;
 let container;
@@ -6,6 +6,46 @@ let template;
 let templateDivider;
 let lastsavetext;
 let textareaButtons;
+
+var db = new Dexie('Todo-Database');
+
+db.version(2).stores({
+    task: '++id',
+    options: '++id'
+});
+db.open().catch(function (e) {
+    console.error("DB open failed: " + e.stack);
+})
+
+/**
+ * Test add and load stuff - works like a charm!
+ */
+// db.transaction('rw', db.task, function () {
+//     db.task.add({
+//         type: "task",
+//         open: true,
+//         taskdone: false,
+//         start: '2023-01-01',
+//         ende: '2023-02-01',
+//         denkaufwand: 1,
+//         prio: 1,
+//         taskname: {
+//             'height': '300px',
+//             'value': 'test taskname'
+//         },
+//         notizen: {
+//             'height': '300px',
+//             'value': 'test notizen'
+//         }
+//     });
+//
+//     db.task.where('id').equals(1).each((e) => {
+//         console.log(e);
+//     });
+//
+// }).catch (function (e) {
+//     console.error(e.stack);
+// });
 
 function exportText() {
     let content = document.querySelector('#list').innerHTML;
@@ -37,19 +77,19 @@ function importText() {
     load();
 }
 
-function save(d = null) {
-    let data;
-
-    if(d !== null) {
-        data = d;
-    }
-    else {
-        data = JSON.stringify(getData());
-    }
-
-    localStorage.setItem(todoData, data);
-    lastsavetext.innerText = getTime();
-}
+// function save(d = null) {
+//     let data;
+//
+//     if(d !== null) {
+//         data = d;
+//     }
+//     else {
+//         data = JSON.stringify(getData());
+//     }
+//
+//     localStorage.setItem(todoData, data);
+//     lastsavetext.innerText = getTime();
+// }
 
 function getData()
 {
@@ -98,57 +138,59 @@ function getData()
 }
 
 function load() {
-    let storage = localStorage.getItem(todoData);
-    if(!storage) {
-        return;
-    }
-    storage = JSON.parse(storage);
-
-    storage.forEach((r)=> {
-        if(r.type == 'divider') {
-            addRow(templateDivider, true);
-        }
-        else {
-            addRow(template, true);
-        }
-
-        let newRow = container.querySelector('.card-container .card:last-child');
-
-        if('open' in r) {
-            newRow.querySelector('details').open = r.open;
-        }
-
-        for(const [key, value] of Object.entries(r.data)) {
-            let input = newRow.querySelector('[name="' + key + '"]');
-
-            if(key == 'taskdone') {
-                input.checked = value;
-
-                if(value) {
-                    newRow.classList.add('strikethrough')
-                }
-            }
-            else if(typeof value === 'object') {
-                input.value = value.value;
-                input.style.height = value.height;
-            }
-            else {
-                input.value = value;
-            }
 
 
-        }
-    })
-    notify('Geladen!');
-
+//     let storage = localStorage.getItem(todoData);
+//     if(!storage) {
+//         return;
+//     }
+//     storage = JSON.parse(storage);
+//
+//     storage.forEach((r)=> {
+//         if(r.type == 'divider') {
+//             addRow(templateDivider, true);
+//         }
+//         else {
+//             addRow(template, true);
+//         }
+//
+//         let newRow = container.querySelector('.card-container .card:last-child');
+//
+//         if('open' in r) {
+//             newRow.querySelector('details').open = r.open;
+//         }
+//
+//         for(const [key, value] of Object.entries(r.data)) {
+//             let input = newRow.querySelector('[name="' + key + '"]');
+//
+//             if(key == 'taskdone') {
+//                 input.checked = value;
+//
+//                 if(value) {
+//                     newRow.classList.add('strikethrough')
+//                 }
+//             }
+//             else if(typeof value === 'object') {
+//                 input.value = value.value;
+//                 input.style.height = value.height;
+//             }
+//             else {
+//                 input.value = value;
+//             }
+//
+//
+//         }
+//     })
+//     notify('Geladen!');
+//
 }
 
-function autoSave() {
-    setTimeout(() => {
-        save();
-        autoSave();
-    }, 5000);
-}
+// function autoSave() {
+//     setTimeout(() => {
+//         save();
+//         autoSave();
+//     }, 5000);
+// }
 
 function notify(txt) {
     let notifications = document.querySelector('#notifications');
@@ -314,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let menuTrigger = document.querySelector('.options-trigger');
     let menuCloseTrigger = document.querySelector('.options-close');
 
-    load();
+    // load();
 
     let optionsmenu = document.querySelector('.menu');
     let body = document.querySelector('body');

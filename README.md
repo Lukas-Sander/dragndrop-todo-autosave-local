@@ -39,6 +39,7 @@ Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 ## Roadmap Version 1.0
 - [x] add drag handle to dividers
 - [ ] switch to indexedDB via dexie
+  - [ ] change saving to save after a short timeout when inputting anything on a card (maybe like 500ms). add visual feedback perhaps. icon per card that visualizes that its up to date / saving?
 - [ ] add legend
 - [ ] proper english
 - [ ] show number of open tasks of the day in tab

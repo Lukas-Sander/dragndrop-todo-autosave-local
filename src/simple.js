@@ -77,6 +77,39 @@ function importText() {
     load();
 }
 
+async function dbInsertTask(task) {
+    await db.transaction('rw', db.task, function () {
+        db.task
+            .add(task)
+            .then(id => {
+                console.log(id);
+                // return id;
+            });
+    });
+}
+
+console.log(dbInsertTask({
+    type: "task",
+    open: true,
+    taskdone: false,
+    start: '2023-01-01',
+    ende: '2023-02-01',
+    denkaufwand: 5,
+    prio: 1,
+    taskname: {
+        'height': '300px',
+        'value': 'test 555'
+    },
+    notizen: {
+        'height': '300px',
+        'value': 'test 555555'
+    }
+}));
+
+function updateTask(id, task) {
+
+}
+
 // function save(d = null) {
 //     let data;
 //
@@ -97,6 +130,9 @@ function getData()
 
     document.querySelectorAll('.card-container .card').forEach((e, i) => {
         let row = {};
+
+        row['id'] = e.dataSet.id;
+
         if(e.classList.contains('divider')) {
             row['type'] = 'divider';
         }

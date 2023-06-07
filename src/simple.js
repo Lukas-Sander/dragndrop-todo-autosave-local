@@ -7,15 +7,17 @@ let templateDivider;
 let lastsavetext;
 let textareaButtons;
 
-var db = new Dexie('Todo-Database');
+let db = new Database();
 
-db.version(2).stores({
-    task: '++id',
-    options: '++id'
-});
-db.open().catch(function (e) {
-    console.error("DB open failed: " + e.stack);
-})
+// var db = new Dexie('Todo-Database');
+//
+// db.version(2).stores({
+//     task: '++id',
+//     options: '++id'
+// });
+// db.open().catch(function (e) {
+//     console.error("DB open failed: " + e.stack);
+// })
 
 /**
  * Test add and load stuff - works like a charm!
@@ -77,38 +79,125 @@ function importText() {
     load();
 }
 
-async function dbInsertTask(task) {
-    await db.transaction('rw', db.task, function () {
-        db.task
-            .add(task)
-            .then(id => {
-                console.log(id);
-                // return id;
-            });
+// async function dbInsertTask(task) {
+//     await db.transaction('rw', db.task, function () {
+//         db.task
+//             .add(task)
+//             .then(id => {
+//                 console.log(id);
+//                 // return id;
+//             });
+//     });
+// }
+
+async function main() {
+    container = document.querySelector('.card-container');
+    template = document.querySelector('#template_todo');
+    templateDivider = document.querySelector('#template_divider');
+    lastsavetext = document.querySelector('.lastsave-data');
+    importFile = document.querySelector('#importFile');
+    let menuTrigger = document.querySelector('.options-trigger');
+    let menuCloseTrigger = document.querySelector('.options-close');
+
+    await load();
+
+    let optionsmenu = document.querySelector('.menu');
+    let body = document.querySelector('body');
+
+    menuTrigger.addEventListener('click', () => {
+        optionsmenu.classList.add('active');
+        body.classList.add('body-inactive');
+    })
+    menuCloseTrigger.addEventListener('click', () => {
+        optionsmenu.classList.remove('active');
+        body.classList.remove('body-inactive');
+    })
+
+    sortable = new Sortable(container, {
+        handle: '.handle',
+        animation: 150,
+        onEnd: () => {
+            save();
+        }
     });
+
+
+    document.querySelector('#addRow').addEventListener('click', ()=> {
+        addRow(template);
+    });
+
+    document.querySelector('#addDivider').addEventListener('click', ()=> {
+        addRow(templateDivider);
+    });
+    // document.querySelector('.download-txt').addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     download("todo.txt",JSON.stringify(getData()));
+    // });
+    // document.querySelector('.upload-txt').addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     if(confirm('Wirklich importieren? Aktuelle Daten werden dadurch überschrieben!')) {
+    //         if(importFile.files.length > 0) {
+    //             let reader = new FileReader();
+    //             reader.readAsText(importFile.files[0]);
+    //             reader.onload = ((e) => {
+    //                 console.log(e.target.result);
+    //                 clearBoard();
+    //                 save(e.target.result);
+    //                 load();
+    //             });
+    //         }
+    //         else {
+    //             alert('Keine Datei für den Import ausgewählt!');
+    //         }
+    //     }
+    // });
+
+    document.addEventListener('keydown', (e) => {
+        switch(e.key) {
+            case 'Escape':
+                if(!optionsmenu.classList.contains('active')) {
+                    menuTrigger.click();
+                }
+                else {
+                    menuCloseTrigger.click();
+                }
+                break;
+            default:
+                break;
+        }
+    });
+
+    startTime();
+
+    // document.querySelector('#manualstyle').innerHTML = '.card{background:blue;}'
+
+
+    await db.addTask({
+        type: "task",
+        open: true,
+        taskdone: false,
+        start: '2023-01-01',
+        ende: '2023-02-01',
+        denkaufwand: 1,
+        prio: 1,
+        taskname: {
+            'height': '300px',
+            'value': 'test taskname'
+        },
+        notizen: {
+            'height': '300px',
+            'value': 'test notizen'
+        },
+        order: 1
+    });
+    // let etetett = await db.loadAllTasks();
+    // console.log(etetett);
 }
 
-console.log(dbInsertTask({
-    type: "task",
-    open: true,
-    taskdone: false,
-    start: '2023-01-01',
-    ende: '2023-02-01',
-    denkaufwand: 5,
-    prio: 1,
-    taskname: {
-        'height': '300px',
-        'value': 'test 555'
-    },
-    notizen: {
-        'height': '300px',
-        'value': 'test 555555'
-    }
-}));
 
-function updateTask(id, task) {
-
-}
+// function updateTask(id, task) {
+//
+// }
 
 // function save(d = null) {
 //     let data;
@@ -173,7 +262,12 @@ function getData()
     return data;
 }
 
-function load() {
+async function load() {
+    let cards = await db.loadAllTasks();
+
+    // cards.forEach((e) => {
+    //
+    // });
 
 
 //     let storage = localStorage.getItem(todoData);
@@ -182,41 +276,45 @@ function load() {
 //     }
 //     storage = JSON.parse(storage);
 //
-//     storage.forEach((r)=> {
-//         if(r.type == 'divider') {
-//             addRow(templateDivider, true);
-//         }
-//         else {
-//             addRow(template, true);
-//         }
-//
-//         let newRow = container.querySelector('.card-container .card:last-child');
-//
-//         if('open' in r) {
-//             newRow.querySelector('details').open = r.open;
-//         }
-//
-//         for(const [key, value] of Object.entries(r.data)) {
-//             let input = newRow.querySelector('[name="' + key + '"]');
-//
-//             if(key == 'taskdone') {
-//                 input.checked = value;
-//
-//                 if(value) {
-//                     newRow.classList.add('strikethrough')
-//                 }
-//             }
-//             else if(typeof value === 'object') {
-//                 input.value = value.value;
-//                 input.style.height = value.height;
-//             }
-//             else {
-//                 input.value = value;
-//             }
-//
-//
-//         }
-//     })
+    for(const [order, r] of Object.entries(cards)) {
+        console.log(r);
+        if(r.type == 'divider') {
+            addRow(templateDivider, true);
+        }
+        else {
+            addRow(template, true);
+        }
+
+        let newRow = container.querySelector('.card-container .card:last-child');
+
+        if('open' in r) {
+            newRow.querySelector('details').open = r.open;
+        }
+
+        for(const [key, value] of Object.entries(r)) {
+            let input = newRow.querySelector('[name="' + key + '"]');
+            if(!input) {
+                continue;
+            }
+
+            if(key == 'taskdone') {
+                input.checked = value;
+
+                if(value) {
+                    newRow.classList.add('strikethrough')
+                }
+            }
+            else if(typeof value === 'object') {
+                input.value = value.value;
+                input.style.height = value.height;
+            }
+            else {
+                input.value = value;
+            }
+
+
+        }
+    }
 //     notify('Geladen!');
 //
 }
@@ -383,85 +481,6 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight)+"px";
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    container = document.querySelector('.card-container');
-    template = document.querySelector('#template_todo');
-    templateDivider = document.querySelector('#template_divider');
-    lastsavetext = document.querySelector('.lastsave-data');
-    importFile = document.querySelector('#importFile');
-    let menuTrigger = document.querySelector('.options-trigger');
-    let menuCloseTrigger = document.querySelector('.options-close');
-
-    // load();
-
-    let optionsmenu = document.querySelector('.menu');
-    let body = document.querySelector('body');
-
-    menuTrigger.addEventListener('click', () => {
-        optionsmenu.classList.add('active');
-        body.classList.add('body-inactive');
-    })
-    menuCloseTrigger.addEventListener('click', () => {
-        optionsmenu.classList.remove('active');
-        body.classList.remove('body-inactive');
-    })
-
-    sortable = new Sortable(container, {
-        handle: '.handle',
-        animation: 150,
-        onEnd: () => {
-            save();
-        }
-    });
-
-
-    document.querySelector('#addRow').addEventListener('click', ()=> {
-        addRow(template);
-    });
-
-    document.querySelector('#addDivider').addEventListener('click', ()=> {
-        addRow(templateDivider);
-    });
-    document.querySelector('.download-txt').addEventListener('click', (e) => {
-        e.preventDefault();
-        download("todo.txt",JSON.stringify(getData()));
-    });
-    document.querySelector('.upload-txt').addEventListener('click', (e) => {
-        e.preventDefault();
-        if(confirm('Wirklich importieren? Aktuelle Daten werden dadurch überschrieben!')) {
-            if(importFile.files.length > 0) {
-                let reader = new FileReader();
-                reader.readAsText(importFile.files[0]);
-                reader.onload = ((e) => {
-                    console.log(e.target.result);
-                    clearBoard();
-                    save(e.target.result);
-                    load();
-                });
-            }
-            else {
-                alert('Keine Datei für den Import ausgewählt!');
-            }
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        switch(e.key) {
-            case 'Escape':
-                if(!optionsmenu.classList.contains('active')) {
-                    menuTrigger.click();
-                }
-                else {
-                    menuCloseTrigger.click();
-                }
-                break;
-            default:
-                break;
-        }
-    });
-
-    startTime();
-
-    // document.querySelector('#manualstyle').innerHTML = '.card{background:blue;}'
-
+document.addEventListener('DOMContentLoaded', async () => {
+    main();
 });

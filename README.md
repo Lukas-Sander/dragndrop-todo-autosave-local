@@ -40,18 +40,22 @@ Progress: 🟩🟩🟩🟩🟩🟩🟩🟩
 - [x] add drag handle to dividers
 - [ ] switch to indexedDB via dexie
   - [ ] change saving to save after a short timeout when inputting anything on a card (maybe like 500ms). add visual feedback perhaps. icon per card that visualizes that its up to date / saving?
-- [ ] add legend
 - [ ] proper english
 - [ ] show number of open tasks of the day in tab
+- [ ] add legend
+  - [ ] add status icon/emoji as well as emoji guide for usage (below checkbox?)
+- [ ] consider putting start + end date in summary instead of detail
+- [ ] consider numbering the tasks via ol-li or via the order property (tbd)
+- [ ] change menu from burger to html dialog element
+- [ ] add placeholder texts for card fields
+- [ ] autofocus task name when adding one
+- [ ] add a version check via AJAX
 - [ ] add options:
   - [ ] language
   - [ ] card width
   - [ ] colors and color rules?
   - [ ] font family
   - [ ] light / dark mode
-- [ ] add a version check via AJAX
-- [ ] autofocus task name when adding one
-- [ ] add placeholder texts for card fields
 - [ ] cleanup
   - [ ] split js files
   - [ ] streamline styling and functions

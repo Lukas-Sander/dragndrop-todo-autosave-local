@@ -42,41 +42,43 @@
 <template id="template_todo">
     <div class="card" data-id="">
         <div class="row w-100">
-            <textarea name="taskname" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
+            <textarea name="taskname" class="grow" onmouseup="markunsaved(this);" onchange="markunsaved(this);" oninput="auto_grow(this);markunsaved(this);"></textarea>
             <div>
                 <div class="handle"></div>
                 <input type="checkbox" name="taskdone" onchange="strikeRow(this);">
             </div>
         </div>
-        <details ontoggle="save();" open>
+        <details ontoggle="markunsaved(this);" open>
             <summary>Details</summary>
             <div class="row w-100 justify">
                 <label class="w-50 row">
                     <span class="img-prio"></span>
-                    <input name="prio" type="number" min="0" max="10" onchange="save();">
+                    <input name="prio" type="number" min="0" max="10" onchange="markunsaved(this);">
                 </label>
                 <label class="w-50 row">
                     <span class="img-think"></span>
-                    <input name="denkaufwand" type="number" min="0" max="10" class="w-50" onchange="save();">
+                    <input name="denkaufwand" type="number" min="0" max="10" class="w-50" onchange="markunsaved(this);">
                 </label>
                 <div class="delete img-trash" onclick="deleteTask(this);"></div>
             </div>
             <div class="row w-100">
-                <input type="date" name="start" class="w-50" onchange="save();">
+                <input type="date" name="start" class="w-50" onchange="markunsaved(this);">
                 <span class="p-l-1 p-r-1">bis</span>
-                <input type="date" name="ende" class="w-50" onchange="save();">
+                <input type="date" name="ende" class="w-50" onchange="markunsaved(this);">
             </div>
             <div class="row w-100">
-                <textarea class="w-100" name="notizen" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
+                <textarea class="w-100" name="notizen" onmouseup="markunsaved(this);" onchange="markunsaved(this);" oninput="auto_grow(this);markunsaved(this);"></textarea>
             </div>
         </details>
     </div>
 </template>
 <template id="template_divider">
     <div class="card divider row" data-id="">
-        <textarea name="dividertext" rows="1" class="grow" onmouseup="save();" onchange="save();" oninput="auto_grow(this);"></textarea>
-        <div class="delete img-trash" onclick="deleteTask(this);"></div>
-        <div class="handle"></div>
+        <textarea name="dividertext" rows="1" class="grow" onmouseup="markunsaved(this);" onchange="markunsaved(this);" oninput="auto_grow(this);"></textarea>
+        <div>
+            <div class="handle"></div>
+            <div class="delete img-trash" onclick="deleteTask(this);"></div>
+        </div>
     </div>
 </template>
 <div id="notifications">

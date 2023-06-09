@@ -6,6 +6,7 @@ let template;
 let templateDivider;
 let lastsavetext;
 let textareaButtons;
+let timeout = null;
 
 let db = new Database();
 
@@ -172,24 +173,24 @@ async function main() {
     // document.querySelector('#manualstyle').innerHTML = '.card{background:blue;}'
 
 
-    await db.addTask({
-        type: "task",
-        open: true,
-        taskdone: false,
-        start: '2023-01-01',
-        ende: '2023-02-01',
-        denkaufwand: 1,
-        prio: 1,
-        taskname: {
-            'height': '300px',
-            'value': 'test taskname'
-        },
-        notizen: {
-            'height': '300px',
-            'value': 'test notizen'
-        },
-        order: 1
-    });
+    // await db.addTask({
+    //     type: "task",
+    //     open: true,
+    //     taskdone: false,
+    //     start: '2023-01-01',
+    //     ende: '2023-02-01',
+    //     denkaufwand: 1,
+    //     prio: 1,
+    //     taskname: {
+    //         'height': '300px',
+    //         'value': 'test taskname'
+    //     },
+    //     notizen: {
+    //         'height': '300px',
+    //         'value': 'test notizen'
+    //     },
+    //     order: 2
+    // });
     // let etetett = await db.loadAllTasks();
     // console.log(etetett);
 }
@@ -199,7 +200,27 @@ async function main() {
 //
 // }
 
-// function save(d = null) {
+function markunsaved(e) {
+    let card = e.closest('.card');
+    card.classList.add('unsaved');
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        saveCards();
+    }, 500);
+}
+
+async function saveCards() {
+    document.querySelectorAll('.card.unsaved').forEach((e) => {
+        //TODO: save each card
+    });
+
+    // let card = e.closest('.card');
+    //
+    // let data = {};
+    //
+    //
+    // console.log(card);
 //     let data;
 //
 //     if(d !== null) {
@@ -211,56 +232,56 @@ async function main() {
 //
 //     localStorage.setItem(todoData, data);
 //     lastsavetext.innerText = getTime();
-// }
-
-function getData()
-{
-    let data = [];
-
-    document.querySelectorAll('.card-container .card').forEach((e, i) => {
-        let row = {};
-
-        row['id'] = e.dataSet.id;
-
-        if(e.classList.contains('divider')) {
-            row['type'] = 'divider';
-        }
-        else {
-            row['type'] = 'card';
-        }
-
-        let open = e.querySelector('details');
-        if(open) {
-            row['open'] = open.open;
-        }
-
-
-        let dat = {};
-
-        e.querySelectorAll('input, textarea').forEach((v) => {
-
-            if(v.type == 'checkbox') {
-                dat[v.name] = v.checked;
-            }
-            else {
-                dat[v.name] = v.value;
-            }
-
-            if(v.type == 'textarea') {
-                let subrow = {};
-                subrow['height'] = v.style.height;
-                subrow['value'] = v.value;
-                dat[v.name] = subrow;
-            }
-
-        });
-        row['data'] = dat;
-
-        data.push(row);
-    });
-
-    return data;
 }
+
+// function getData()
+// {
+//     let data = [];
+//
+//     document.querySelectorAll('.card-container .card').forEach((e, i) => {
+//         let row = {};
+//
+//         row['id'] = e.dataSet.id;
+//
+//         if(e.classList.contains('divider')) {
+//             row['type'] = 'divider';
+//         }
+//         else {
+//             row['type'] = 'card';
+//         }
+//
+//         let open = e.querySelector('details');
+//         if(open) {
+//             row['open'] = open.open;
+//         }
+//
+//
+//         let dat = {};
+//
+//         e.querySelectorAll('input, textarea').forEach((v) => {
+//
+//             if(v.type == 'checkbox') {
+//                 dat[v.name] = v.checked;
+//             }
+//             else {
+//                 dat[v.name] = v.value;
+//             }
+//
+//             if(v.type == 'textarea') {
+//                 let subrow = {};
+//                 subrow['height'] = v.style.height;
+//                 subrow['value'] = v.value;
+//                 dat[v.name] = subrow;
+//             }
+//
+//         });
+//         row['data'] = dat;
+//
+//         data.push(row);
+//     });
+//
+//     return data;
+// }
 
 async function load() {
     let cards = await db.loadAllTasks();
@@ -277,12 +298,12 @@ async function load() {
 //     storage = JSON.parse(storage);
 //
     for(const [order, r] of Object.entries(cards)) {
-        console.log(r);
+        // console.log(r);
         if(r.type == 'divider') {
-            addRow(templateDivider, true);
+            addRow(templateDivider);
         }
         else {
-            addRow(template, true);
+            addRow(template);
         }
 
         let newRow = container.querySelector('.card-container .card:last-child');
@@ -292,6 +313,10 @@ async function load() {
         }
 
         for(const [key, value] of Object.entries(r)) {
+            if(key === 'id') {
+                newRow.dataset.id = value;
+            }
+
             let input = newRow.querySelector('[name="' + key + '"]');
             if(!input) {
                 continue;
@@ -362,7 +387,9 @@ function strikeRow(e) {
     save();
 }
 
-function addRow(t, isloading = false) {
+function addRow(t) {
+    //TODO: add db-connection and wait for id of card before creating it
+    //TODO: get order of card via DOM query
     const clone = t.content.cloneNode(true);
     container.append(clone);
 
@@ -373,9 +400,6 @@ function addRow(t, isloading = false) {
             save();
         }
     });
-    if(!isloading) {
-        save();
-    }
 }
 
 function download(filename, text) {
